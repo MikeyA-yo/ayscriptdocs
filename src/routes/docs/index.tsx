@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { motion } from 'motion/react'
-import { ArrowRight, Terminal, Code, FileText, Download, Play } from 'lucide-react'
+import { ArrowRight, Terminal, Code, FileText, Download, Play, Zap } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/docs/')({
@@ -17,6 +17,10 @@ function DocsPage() {
     { id: 'variables', title: 'Variables & Data Types', icon: <Code size={16} /> },
     { id: 'control-flow', title: 'Control Flow', icon: <ArrowRight size={16} /> },
     { id: 'loops', title: 'Loops', icon: <Terminal size={16} /> },
+  ]
+
+  const externalLinks = [
+    { href: '/docs/builtins', title: 'Built-in Functions', icon: <Zap size={16} /> }
   ]
 
   const scrollToSection = (sectionId: string) => {
@@ -52,6 +56,21 @@ function DocsPage() {
                 {section.title}
               </button>
             ))}
+            
+            {/* External Documentation Links */}
+            <div className="pt-4 border-t border-blue-400/20">
+              <div className="text-xs font-semibold text-blue-300 mb-3 px-3">API Reference</div>
+              {externalLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-blue-100 hover:bg-blue-600/10 hover:text-white"
+                >
+                  {link.icon}
+                  {link.title}
+                </a>
+              ))}
+            </div>
           </nav>
         </div>
 
@@ -759,6 +778,63 @@ while (counter < 10) {
               </div>
             </motion.section>
 
+            {/* Next Steps Section */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-xl p-8 border border-cyan-400/30">
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Zap className="text-cyan-400" />
+                  What's Next?
+                </h2>
+                <p className="text-blue-100 mb-6">
+                  Now that you understand the basics of AY, explore the comprehensive built-in function library 
+                  to supercharge your programs with math, string manipulation, HTTP requests, and more!
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-slate-800/30 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                      <Zap size={18} className="text-cyan-400" />
+                      Built-in Functions
+                    </h3>
+                    <p className="text-blue-200 text-sm mb-4">
+                      Discover over 80+ built-in functions for math, strings, arrays, HTTP requests, date/time, and more.
+                    </p>
+                    <a
+                      href="/docs/builtins"
+                      className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Explore Built-ins
+                      <ArrowRight size={14} />
+                    </a>
+                  </div>
+                  
+                  <div className="bg-slate-800/30 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                      <Code size={18} className="text-cyan-400" />
+                      Example Programs
+                    </h3>
+                    <p className="text-blue-200 text-sm mb-4">
+                      Ready to build? Try creating web servers, data processors, or automation scripts with AY.
+                    </p>
+                    <a
+                      href="https://github.com/MikeyA-yo/ay-ts"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      View Examples
+                      <ArrowRight size={14} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+
             {/* Navigation */}
             <motion.div
               className="flex justify-between items-center pt-8 border-t border-blue-400/20"
@@ -766,7 +842,14 @@ while (counter < 10) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div></div>
+              <a
+                href="/docs/builtins"
+                className="flex items-center gap-2 text-blue-300 hover:text-white transition-colors"
+              >
+                <Zap size={16} />
+                Built-in Functions Reference
+                <ArrowRight size={16} />
+              </a>
               <button
                 onClick={() => scrollToSection('introduction')}
                 className="flex items-center gap-2 text-blue-300 hover:text-white transition-colors"
