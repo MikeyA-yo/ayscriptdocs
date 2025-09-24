@@ -278,14 +278,15 @@ print("Average: " + result)`
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            <motion.button
+            <motion.a
+              href="/docs"
               className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold flex items-center gap-2 justify-center hover:bg-blue-50 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <BookOpen size={20} />
               Read Documentation
-            </motion.button>
+            </motion.a>
             
             <motion.button
               className="border border-blue-300 hover:border-white text-blue-200 hover:text-white px-8 py-4 rounded-lg font-semibold flex items-center gap-2 justify-center transition-colors"
