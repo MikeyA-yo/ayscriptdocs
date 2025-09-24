@@ -15,8 +15,11 @@
     "@tanstack/react-router": "^1.130.2",
     "@tanstack/react-router-devtools": "^1.131.5",
     "@tanstack/router-plugin": "^1.121.2",
+    "lucide-react": "^0.544.0",
+    "motion": "^12.23.21",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
