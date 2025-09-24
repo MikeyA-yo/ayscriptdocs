@@ -15,6 +15,8 @@ function DocsPage() {
     { id: 'installation', title: 'Installation', icon: <Download size={16} /> },
     { id: 'compiler', title: 'Using the Compiler', icon: <Terminal size={16} /> },
     { id: 'variables', title: 'Variables & Data Types', icon: <Code size={16} /> },
+    { id: 'control-flow', title: 'Control Flow', icon: <ArrowRight size={16} /> },
+    { id: 'loops', title: 'Loops', icon: <Terminal size={16} /> },
   ]
 
   const scrollToSection = (sectionId: string) => {
@@ -96,6 +98,23 @@ function DocsPage() {
                     <li>• Rich standard library with built-in functions</li>
                     <li>• Functional programming paradigm</li>
                     <li>• Perfect for rapid prototyping and learning</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-orange-900/20 rounded-xl p-6 border border-orange-400/30 mb-6">
+                  <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <FileText size={16} className="text-orange-400" />
+                    Important Syntax Rules
+                  </h4>
+                  <ul className="text-orange-100 space-y-2">
+                    <li>• <strong>Newlines act as statement terminators</strong> - Similar to semicolons in other languages</li>
+                    <li>• <strong>Arrays can span multiple lines</strong> - The only exception to the newline rule</li>
+                    <li>• <strong>Control flow keywords must be properly positioned:</strong>
+                      <ul className="ml-4 mt-2 space-y-1">
+                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code></li>
+                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else if</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code></li>
+                      </ul>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -270,10 +289,22 @@ l isFalse = false`}</code>
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Arrays</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 mb-2">
                           <code className="text-blue-100 text-sm">{`l numbers = [1, 2, 3, 4, 5]
 l fruits = ["apple", "banana", "orange"]
-l mixed = [1, "hello", true]`}</code>
+l mixed = [1, "hello", true]
+
+// Arrays can span multiple lines
+l longArray = [
+    "first item",
+    "second item", 
+    "third item",
+    42,
+    true
+]`}</code>
+                        </div>
+                        <div className="text-xs text-blue-300">
+                          <strong>Note:</strong> Arrays are the only construct that can span multiple lines in AY.
                         </div>
                       </div>
 
@@ -326,16 +357,18 @@ print("Parsed user data available as JSON string")`}</code>
                 </div>
 
                 {/* Custom Aliases */}
-                <div>
+                <div className="bg-blue-900/30 rounded-xl p-6 border border-blue-400/30">
                   <h3 className="text-xl font-semibold text-white mb-4">Custom Keyword Aliases</h3>
                   <p className="text-blue-100 mb-4">
-                    Use the <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">def</code> keyword to create custom aliases for better readability:
+                    Use the <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">def</code> keyword to create custom aliases for language keywords only:
                   </p>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20 mb-4">
                     <pre className="text-blue-100 text-sm">
-                      <code>{`// Create custom aliases
-def var -> l
-def fn -> f
+                      <code>{`// Create custom aliases for KEYWORDS ONLY
+def var -> l        // Alias for variable declaration
+def fn -> f         // Alias for function declaration
+def brk -> break    // Alias for break keyword
+def cnt -> continue // Alias for continue keyword
 
 // Now use your custom syntax
 var userName = "Alice"
@@ -348,6 +381,378 @@ fn calculateAge(birthYear) {
 
 var age = calculateAge(1995)
 print("Age: " + age)`}</code>
+                    </pre>
+                  </div>
+                  <div className="bg-amber-900/20 rounded-lg p-4 border border-amber-400/30">
+                    <p className="text-amber-200 text-sm">
+                      <strong>Important:</strong> The <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">def</code> keyword can only be used to create aliases for language keywords, 
+                      not for strings, functions, or variables. It's a compile-time feature for syntax customization.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+
+            {/* Control Flow Section */}
+            <motion.section
+              id="control-flow"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2">
+                <ArrowRight className="text-cyan-400" />
+                Control Flow
+              </h2>
+              
+              <div className="space-y-8">
+                {/* If-Else Statements */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">If-Else Statements</h3>
+                  <p className="text-blue-100 mb-4">
+                    Control program flow with conditional statements using <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">if</code>, 
+                    <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-2">else if</code>, and 
+                    <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-2">else</code>:
+                  </p>
+                  
+                  <div className="bg-red-900/20 rounded-lg p-4 border border-red-400/30 mb-6">
+                    <h4 className="text-red-200 font-semibold mb-2">⚠️ Important Syntax Rule</h4>
+                    <p className="text-red-100 text-sm mb-3">
+                      In AY, newlines act as statement terminators (like semicolons). For <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else</code> and 
+                      <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-1">else if</code> to work properly, 
+                      they <strong>must be on the same line</strong> as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code> of the previous block.
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-green-400 text-xs mb-2">✅ Correct:</p>
+                        <pre className="bg-slate-800 rounded p-2 text-xs text-green-300">
+                          <code>{`if (condition) {
+    // code
+} else {
+    // code
+}`}</code>
+                        </pre>
+                      </div>
+                      <div>
+                        <p className="text-red-400 text-xs mb-2">❌ Wrong:</p>
+                        <pre className="bg-slate-800 rounded p-2 text-xs text-red-300">
+                          <code>{`if (condition) {
+    // code
+}
+else {  // This won't work!
+    // code
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Basic If Statement</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l age = 18
+
+if (age >= 18) {
+    print("You are an adult!")
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">If-Else Statement</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l score = 85
+
+if (score >= 90) {
+    print("Grade: A")
+} else {
+    print("Grade: B or lower")
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">If-Else If-Else Chain</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l temperature = 25
+
+if (temperature > 30) {
+    print("It's hot!")
+} else if (temperature > 20) {
+    print("It's warm!")
+} else if (temperature > 10) {
+    print("It's cool!")
+} else {
+    print("It's cold!")
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Comparison Operators */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Comparison Operators</h3>
+                  <p className="text-blue-100 mb-4">Use these operators in conditional statements:</p>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-slate-800/50 rounded-xl p-4 border border-blue-400/20">
+                      <h4 className="text-white font-semibold mb-3">Equality & Comparison</h4>
+                      <div className="space-y-2 text-blue-100 text-sm">
+                        <div><code className="text-cyan-400">==</code> - Equal to</div>
+                        <div><code className="text-cyan-400">!=</code> - Not equal to</div>
+                        <div><code className="text-cyan-400">&lt;</code> - Less than</div>
+                        <div><code className="text-cyan-400">&gt;</code> - Greater than</div>
+                        <div><code className="text-cyan-400">&lt;=</code> - Less than or equal</div>
+                        <div><code className="text-cyan-400">&gt;=</code> - Greater than or equal</div>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-800/50 rounded-xl p-4 border border-blue-400/20">
+                      <h4 className="text-white font-semibold mb-3">Logical Operators</h4>
+                      <div className="space-y-2 text-blue-100 text-sm">
+                        <div><code className="text-cyan-400">&&</code> - Logical AND</div>
+                        <div><code className="text-cyan-400">||</code> - Logical OR</div>
+                        <div><code className="text-cyan-400">!</code> - Logical NOT</div>
+                      </div>
+                      <div className="mt-3">
+                        <pre className="text-cyan-400 text-xs">
+                          <code>{`if (age >= 18 && hasLicense) {
+    print("Can drive!")
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Functions with Return */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Functions with Conditional Returns</h3>
+                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                    <pre className="text-blue-100 text-sm">
+                      <code>{`f checkGrade(score) {
+    if (score >= 90) {
+        return "A"
+    } else if (score >= 80) {
+        return "B"
+    } else if (score >= 70) {
+        return "C"
+    } else {
+        return "F"
+    }
+}
+
+l studentGrade = checkGrade(85)
+print("Grade: " + studentGrade)  // Output: Grade: B`}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+
+            {/* Loops Section */}
+            <motion.section
+              id="loops"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2">
+                <Terminal className="text-cyan-400" />
+                Loops
+              </h2>
+              
+              <div className="space-y-8">
+                {/* While Loops */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">While Loops</h3>
+                  <p className="text-blue-100 mb-4">
+                    Execute code repeatedly while a condition is true:
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Basic While Loop</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l counter = 0
+
+while (counter < 5) {
+    print("Counter: " + counter)
+    counter++
+}
+
+// Output:
+// Counter: 0
+// Counter: 1
+// Counter: 2
+// Counter: 3
+// Counter: 4`}</code>
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">While Loop with User Input</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l userInput = ""
+
+while (userInput != "quit") {
+    userInput = input("Enter 'quit' to exit: ")
+    if (userInput != "quit") {
+        print("You entered: " + userInput)
+    }
+}
+
+print("Goodbye!")`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* For Loops */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">For Loops</h3>
+                  <p className="text-blue-100 mb-4">
+                    Execute code for a specific number of iterations:
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Basic For Loop</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`// Print numbers from 0 to 9
+for (l i = 0; i < 10; i++) {
+    print("Number: " + i)
+}
+
+// Countdown example
+for (l count = 10; count > 0; count--) {
+    print("Countdown: " + count)
+}
+print("Blast off!")`}</code>
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">For Loop with Arrays</h4>
+                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                        <pre className="text-blue-100 text-sm">
+                          <code>{`l fruits = ["apple", "banana", "orange", "grape"]
+l arrayLength = len(fruits)
+
+for (l i = 0; i < arrayLength; i++) {
+    print("Fruit " + i + ": " + fruits[i])
+}
+
+// Output:
+// Fruit 0: apple
+// Fruit 1: banana
+// Fruit 2: orange
+// Fruit 3: grape`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Loop Control */}
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-4">Loop Control</h3>
+                  <p className="text-blue-100 mb-4">
+                    Control loop execution with <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">break</code> and 
+                    <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-2">continue</code>:
+                  </p>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Using Break</h4>
+                      <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
+                        <pre className="text-blue-100 text-xs">
+                          <code>{`l numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+for (l i = 0; i < len(numbers); i++) {
+    if (numbers[i] == 5) {
+        print("Found 5! Breaking...")
+        break  // Exit the loop
+    }
+    print("Number: " + numbers[i])
+}
+
+// Output:
+// Number: 1
+// Number: 2
+// Number: 3
+// Number: 4
+// Found 5! Breaking...`}</code>
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Using Continue</h4>
+                      <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
+                        <pre className="text-blue-100 text-xs">
+                          <code>{`// Skip even numbers
+for (l i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue  // Skip to next iteration
+    }
+    print("Odd number: " + i)
+}
+
+// Output:
+// Odd number: 1
+// Odd number: 3
+// Odd number: 5
+// Odd number: 7
+// Odd number: 9`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Custom Aliases for Loops */}
+                <div className="bg-green-900/20 rounded-xl p-6 border border-green-400/30">
+                  <h4 className="text-white font-semibold mb-3">Using Custom Aliases with Loops</h4>
+                  <p className="text-green-100 mb-4">
+                    You can create aliases for loop control keywords to make your code more readable:
+                  </p>
+                  <div className="bg-slate-800 rounded-lg p-4">
+                    <pre className="text-blue-100 text-sm">
+                      <code>{`// Define custom aliases
+def brk -> break
+def skip -> continue
+def var -> l
+
+// Use aliases in loops
+var counter = 0
+while (counter < 10) {
+    if (counter == 3) {
+        counter++
+        skip  // Skip when counter is 3
+    }
+    if (counter == 7) {
+        brk   // Break when counter is 7
+    }
+    print("Counter: " + counter)
+    counter++
+}`}</code>
                     </pre>
                   </div>
                 </div>
