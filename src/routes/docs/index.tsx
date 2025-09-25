@@ -130,8 +130,8 @@ function DocsPage() {
                     <li>• <strong>Arrays can span multiple lines</strong> - The only exception to the newline rule</li>
                     <li>• <strong>Control flow keywords must be properly positioned:</strong>
                       <ul className="ml-4 mt-2 space-y-1">
-                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code></li>
-                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else if</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code></li>
+                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">&#125;</code></li>
+                        <li>- <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else if</code> must be on the same line as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">&#125;</code></li>
                       </ul>
                     </li>
                   </ul>
@@ -440,7 +440,7 @@ print("Age: " + age)`}</code>
                     <p className="text-red-100 text-sm mb-3">
                       In AY, newlines act as statement terminators (like semicolons). For <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">else</code> and 
                       <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-1">else if</code> to work properly, 
-                      they <strong>must be on the same line</strong> as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">{'}'}</code> of the previous block.
+                      they <strong>must be on the same line</strong> as the closing <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">&#125;</code> of the previous block.
                     </p>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
