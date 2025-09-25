@@ -49,7 +49,7 @@ print("Average: " + result)`
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-12 sm:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,13 +59,13 @@ print("Average: " + result)`
             <motion.img
               src="/ayscript.jpg"
               alt="AY Language Logo"
-              className="w-24 h-24 mx-auto mb-8 rounded-2xl shadow-2xl"
+              className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 sm:mb-8 rounded-2xl shadow-2xl"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             />
             
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -74,7 +74,7 @@ print("Average: " + result)`
             </motion.h1>
             
             <motion.p
-              className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto"
+              className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -113,7 +113,7 @@ print("Average: " + result)`
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-2 sm:px-4 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-white text-center mb-16"
@@ -125,20 +125,20 @@ print("Average: " + result)`
             Why Choose AY?
           </motion.h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
-                icon: <Zap className="w-12 h-12 text-cyan-400" />,
+                icon: <Zap className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-400" />,
                 title: "Simple Syntax",
                 description: "Clean, minimal syntax with custom aliases using the 'def' keyword for maximum readability"
               },
               {
-                icon: <Code className="w-12 h-12 text-blue-400" />,
+                icon: <Code className="w-10 h-10 sm:w-12 sm:h-12 text-blue-400" />,
                 title: "JavaScript Compatible",
                 description: "Compiles to JavaScript, allowing you to run your AY code in any JavaScript environment"
               },
               {
-                icon: <Terminal className="w-12 h-12 text-sky-400" />,
+                icon: <Terminal className="w-10 h-10 sm:w-12 sm:h-12 text-sky-400" />,
                 title: "Rich Standard Library",
                 description: "Comprehensive built-in functions for math, strings, arrays, HTTP requests, and more"
               }
@@ -162,19 +162,19 @@ print("Average: " + result)`
       </section>
 
       {/* Code Example Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+      <section className="py-20 px-2 sm:px-4 lg:px-8 bg-black/20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 md:gap-12 gap-2 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
                 See AY in Action
               </h2>
-              <p className="text-blue-100 mb-6 text-lg">
+              <p className="text-blue-100 mb-4 sm:mb-6 text-base sm:text-lg">
                 Experience the clean syntax and powerful features that make AY perfect for rapid prototyping and learning.
               </p>
               <ul className="space-y-3 text-blue-100">
@@ -198,13 +198,13 @@ print("Average: " + result)`
             </motion.div>
             
             <motion.div
-              className="relative"
+              className="relative col-span-1  overflow-hidden"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="bg-slate-800 rounded-xl overflow-hidden shadow-2xl border border-blue-400/30">
+              <div className="bg-slate-800 rounded-xl shadow-2xl border border-blue-400/30">
                 <div className="bg-slate-700 px-4 py-3 flex items-center gap-2">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -213,7 +213,7 @@ print("Average: " + result)`
                   </div>
                   <span className="text-blue-200 text-sm ml-2">example.ay</span>
                 </div>
-                <pre className="p-6 text-sm text-blue-100 overflow-x-auto">
+                <pre className="p-3 sm:p-6 text-xs sm:text-sm text-blue-100 overflow-x-auto">
                   <code>{codeExample}</code>
                 </pre>
               </div>
@@ -226,7 +226,7 @@ print("Average: " + result)`
       <section id="installation-section" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-white mb-8"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 sm:mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -243,8 +243,8 @@ print("Average: " + result)`
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <p className="text-blue-200 text-sm mb-2">Install AY globally via npm:</p>
-            <div className="flex items-center justify-center gap-3">
-              <code className="text-cyan-400 text-lg font-mono">npm install -g ayscript</code>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+              <code className="text-cyan-400 text-sm sm:text-lg font-mono">npm install -g ayscript</code>
               <motion.button
                 onClick={copyToClipboard}
                 className="p-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 hover:border-blue-400/50 transition-colors"

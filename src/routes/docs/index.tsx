@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { motion } from 'motion/react'
-import { ArrowRight, Terminal, Code, FileText, Download, Play, Zap } from 'lucide-react'
+import { ArrowRight, Terminal, Code, FileText, Download, Play, Zap, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/docs/')({
@@ -9,6 +9,7 @@ export const Route = createFileRoute('/docs/')({
 
 function DocsPage() {
   const [activeSection, setActiveSection] = useState('introduction')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const sections = [
     { id: 'introduction', title: 'Introduction', icon: <FileText size={16} /> },
@@ -25,6 +26,7 @@ function DocsPage() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId)
+    setMobileMenuOpen(false) // Close mobile menu when navigating
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -33,9 +35,32 @@ function DocsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
+      {/* Mobile Menu Button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <motion.button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="bg-slate-800/90 backdrop-blur-sm border border-blue-400/30 text-white p-3 rounded-lg shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       <div className="flex">
         {/* Sidebar Navigation */}
-        <div className="fixed left-0 top-0 h-full w-64 bg-slate-800/50 backdrop-blur-sm border-r border-blue-400/20 p-6">
+        <div className={`fixed left-0 top-0 h-full w-64 bg-slate-800/95 backdrop-blur-sm border-r border-blue-400/20 p-6 transform transition-transform duration-300 z-40 ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0`}>
           <div className="flex items-center gap-2 mb-8">
             <img src="/ayscript.jpg" alt="AY Logo" className="w-8 h-8 rounded-lg" />
             <h2 className="text-xl font-bold text-white">AY Docs</h2>
@@ -75,8 +100,8 @@ function DocsPage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 ml-64">
-          <div className="max-w-4xl mx-auto px-8 py-12">
+        <div className="flex-1 lg:ml-64">
+          <div className="max-w-[100vw] mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-20 lg:pt-12 overflow-hidden">
             {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -84,10 +109,10 @@ function DocsPage() {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 AY Language Documentation
               </h1>
-              <p className="text-xl text-blue-100 max-w-2xl">
+              <p className="text-lg sm:text-xl text-blue-100 max-w-2xl">
                 Learn how to use the AY programming language for experimentation, scripting, and rapid prototyping.
               </p>
             </motion.div>
@@ -154,21 +179,21 @@ function DocsPage() {
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-3">Option 1: Install from npm (Recommended)</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 1: Install from npm (Recommended)</h3>
                   <p className="text-blue-100 mb-4">Install the AY compiler globally using npm:</p>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                    <code className="text-cyan-400 font-mono">npm install -g ayscript</code>
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                    <code className="text-cyan-400 font-mono text-sm sm:text-base whitespace-nowrap">npm install -g ayscript</code>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-3">Option 2: Install from Source</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 2: Install from Source</h3>
                   <p className="text-blue-100 mb-4">For development or contributing:</p>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20 space-y-2">
-                    <div><code className="text-cyan-400 font-mono">git clone https://github.com/MikeyA-yo/ay-ts.git</code></div>
-                    <div><code className="text-cyan-400 font-mono">cd ay-ts</code></div>
-                    <div><code className="text-cyan-400 font-mono">npm install</code></div>
-                    <div><code className="text-cyan-400 font-mono">npx tsc</code></div>
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 space-y-2 overflow-x-auto">
+                    <div><code className="text-cyan-400 font-mono text-xs sm:text-sm block whitespace-nowrap">git clone https://github.com/MikeyA-yo/ay-ts.git</code></div>
+                    <div><code className="text-cyan-400 font-mono text-xs sm:text-sm">cd ay-ts</code></div>
+                    <div><code className="text-cyan-400 font-mono text-xs sm:text-sm">npm install</code></div>
+                    <div><code className="text-cyan-400 font-mono text-xs sm:text-sm">npx tsc</code></div>
                   </div>
                 </div>
               </div>
@@ -198,24 +223,24 @@ function DocsPage() {
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">1. Create an AY file</h4>
                       <p className="text-blue-100 mb-2">Write your AY code in a file with the <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">.ay</code> extension:</p>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <code className="text-cyan-400 font-mono">myprogram.ay</code>
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <code className="text-cyan-400 font-mono text-sm whitespace-nowrap">myprogram.ay</code>
                       </div>
                     </div>
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">2. Compile the program</h4>
                       <p className="text-blue-100 mb-2">Use the AY compiler to generate JavaScript:</p>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <code className="text-cyan-400 font-mono">ayc myprogram.ay</code>
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <code className="text-cyan-400 font-mono text-sm whitespace-nowrap">ayc myprogram.ay</code>
                       </div>
                     </div>
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">3. Run the generated JavaScript</h4>
                       <p className="text-blue-100 mb-2">Execute the compiled JavaScript file with Node.js:</p>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <code className="text-cyan-400 font-mono">node myprogram.js</code>
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <code className="text-cyan-400 font-mono text-sm whitespace-nowrap">node myprogram.js</code>
                       </div>
                     </div>
                   </div>
@@ -226,8 +251,8 @@ function DocsPage() {
                     <Play size={16} className="text-cyan-400" />
                     Quick Example
                   </h4>
-                  <div className="bg-slate-800 rounded-lg p-4 mb-4">
-                    <pre className="text-blue-100 text-sm overflow-x-auto">
+                  <div className="bg-slate-800 rounded-lg p-3 sm:p-4 mb-4 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                       <code>{`// hello.ay
 l message = "Hello, AY Language!"
 print(message)`}</code>
@@ -262,8 +287,8 @@ print(message)`}</code>
                   <p className="text-blue-100 mb-4">
                     Variables in AY are declared using the <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">l</code> keyword and are block-scoped:
                   </p>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                    <pre className="text-blue-100 text-sm">
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                       <code>{`l name = "Alice"
 l age = 25
 l isActive = true`}</code>
@@ -275,31 +300,37 @@ l isActive = true`}</code>
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-4">Supported Data Types</h3>
                   
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Primitive Types */}
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Strings</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
-                          <code className="text-blue-100 text-sm">{`l greeting = "Hello World"
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 overflow-x-auto">
+                          <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
+                            <code>{`l greeting = "Hello World"
 l message = 'Single quotes work too'`}</code>
+                          </pre>
                         </div>
                       </div>
 
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Numbers</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
-                          <code className="text-blue-100 text-sm">{`l integer = 42
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 overflow-x-auto">
+                          <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
+                            <code>{`l integer = 42
 l decimal = 3.14159
 l negative = -100`}</code>
+                          </pre>
                         </div>
                       </div>
 
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Booleans</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
-                          <code className="text-blue-100 text-sm">{`l isTrue = true
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 overflow-x-auto">
+                          <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
+                            <code>{`l isTrue = true
 l isFalse = false`}</code>
+                          </pre>
                         </div>
                       </div>
                     </div>
@@ -308,8 +339,9 @@ l isFalse = false`}</code>
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Arrays</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 mb-2">
-                          <code className="text-blue-100 text-sm">{`l numbers = [1, 2, 3, 4, 5]
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 mb-2 overflow-x-auto">
+                          <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
+                            <code>{`l numbers = [1, 2, 3, 4, 5]
 l fruits = ["apple", "banana", "orange"]
 l mixed = [1, "hello", true]
 
@@ -321,6 +353,7 @@ l longArray = [
     42,
     true
 ]`}</code>
+                          </pre>
                         </div>
                         <div className="text-xs text-blue-300">
                           <strong>Note:</strong> Arrays are the only construct that can span multiple lines in AY.
@@ -329,11 +362,13 @@ l longArray = [
 
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Functions</h4>
-                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20">
-                          <code className="text-blue-100 text-sm">{`f greet(name) {
+                        <div className="bg-slate-800 rounded-lg p-3 border border-blue-400/20 overflow-x-auto">
+                          <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
+                            <code>{`f greet(name) {
     return "Hello, " + name + "!"
 }
 l sayHello = greet`}</code>
+                          </pre>
                         </div>
                       </div>
                     </div>
@@ -350,8 +385,8 @@ l sayHello = greet`}</code>
                     AY is currently functional-only and doesn't support object literals. However, you can work with object-like data 
                     using JSON strings, especially when dealing with HTTP responses:
                   </p>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <pre className="text-blue-100 text-sm overflow-x-auto">
+                  <div className="bg-slate-800 rounded-lg p-3 sm:p-4 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                       <code>{`// Working with JSON strings for object-like data
 l userJson = '{"name": "Alice", "age": 25, "email": "alice@example.com"}'
 
@@ -381,8 +416,8 @@ print("Parsed user data available as JSON string")`}</code>
                   <p className="text-blue-100 mb-4">
                     Use the <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">def</code> keyword to create custom aliases for language keywords only:
                   </p>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20 mb-4">
-                    <pre className="text-blue-100 text-sm">
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 mb-4 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                       <code>{`// Create custom aliases for KEYWORDS ONLY
 def var -> l        // Alias for variable declaration
 def fn -> f         // Alias for function declaration
@@ -470,8 +505,8 @@ else {  // This won't work!
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">Basic If Statement</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <pre className="text-blue-100 text-sm">
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                           <code>{`l age = 18
 
 if (age >= 18) {
@@ -483,8 +518,8 @@ if (age >= 18) {
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">If-Else Statement</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <pre className="text-blue-100 text-sm">
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                           <code>{`l score = 85
 
 if (score >= 90) {
@@ -498,8 +533,8 @@ if (score >= 90) {
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">If-Else If-Else Chain</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                        <pre className="text-blue-100 text-sm">
+                      <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                        <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                           <code>{`l temperature = 25
 
 if (temperature > 30) {
@@ -522,10 +557,10 @@ if (temperature > 30) {
                   <h3 className="text-xl font-semibold text-white mb-4">Comparison Operators</h3>
                   <p className="text-blue-100 mb-4">Use these operators in conditional statements:</p>
                   
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
                     <div className="bg-slate-800/50 rounded-xl p-4 border border-blue-400/20">
                       <h4 className="text-white font-semibold mb-3">Equality & Comparison</h4>
-                      <div className="space-y-2 text-blue-100 text-sm">
+                      <div className="space-y-2 text-blue-100 text-xs sm:text-sm">
                         <div><code className="text-cyan-400">==</code> - Equal to</div>
                         <div><code className="text-cyan-400">!=</code> - Not equal to</div>
                         <div><code className="text-cyan-400">&lt;</code> - Less than</div>
@@ -537,7 +572,7 @@ if (temperature > 30) {
 
                     <div className="bg-slate-800/50 rounded-xl p-4 border border-blue-400/20">
                       <h4 className="text-white font-semibold mb-3">Logical Operators</h4>
-                      <div className="space-y-2 text-blue-100 text-sm">
+                      <div className="space-y-2 text-blue-100 text-xs sm:text-sm">
                         <div><code className="text-cyan-400">&&</code> - Logical AND</div>
                         <div><code className="text-cyan-400">||</code> - Logical OR</div>
                         <div><code className="text-cyan-400">!</code> - Logical NOT</div>
@@ -556,8 +591,8 @@ if (temperature > 30) {
                 {/* Functions with Return */}
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-4">Functions with Conditional Returns</h3>
-                  <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
-                    <pre className="text-blue-100 text-sm">
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm whitespace-pre">
                       <code>{`f checkGrade(score) {
     if (score >= 90) {
         return "A"
@@ -795,9 +830,9 @@ while (counter < 10) {
                   to supercharge your programs with math, string manipulation, HTTP requests, and more!
                 </p>
                 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="bg-slate-800/30 rounded-lg p-4">
-                    <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 flex items-center gap-2">
                       <Zap size={18} className="text-cyan-400" />
                       Built-in Functions
                     </h3>
@@ -814,11 +849,11 @@ while (counter < 10) {
                   </div>
                   
                   <div className="bg-slate-800/30 rounded-lg p-4">
-                    <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 flex items-center gap-2">
                       <Code size={18} className="text-cyan-400" />
                       Example Programs
                     </h3>
-                    <p className="text-blue-200 text-sm mb-4">
+                    <p className="text-blue-200 text-xs sm:text-sm mb-4">
                       Ready to build? Try creating web servers, data processors, or automation scripts with AY.
                     </p>
                     <a

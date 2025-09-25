@@ -9,7 +9,9 @@ import {
   Zap, 
   Type,
   List,
-  Database
+  Database,
+  Menu,
+  X
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -19,6 +21,7 @@ export const Route = createFileRoute('/docs/builtins')({
 
 function BuiltinsPage() {
   const [activeSection, setActiveSection] = useState('core')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const sections = [
     { id: 'core', title: 'Core Functions', icon: <Zap size={16} /> },
@@ -33,6 +36,7 @@ function BuiltinsPage() {
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId)
+    setMobileMenuOpen(false) // Close mobile menu when navigating
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -41,9 +45,32 @@ function BuiltinsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
+      {/* Mobile Menu Button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <motion.button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="bg-slate-800/90 backdrop-blur-sm border border-blue-400/30 text-white p-3 rounded-lg shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       <div className="flex">
         {/* Sidebar Navigation */}
-        <div className="fixed left-0 top-0 h-full w-64 bg-slate-800/50 backdrop-blur-sm border-r border-blue-400/20 p-6 overflow-y-auto">
+        <div className={`fixed left-0 top-0 h-full w-64 bg-slate-800/95 backdrop-blur-sm border-r border-blue-400/20 p-6 overflow-y-auto transform transition-transform duration-300 z-40 ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0`}>
           <div className="flex items-center gap-2 mb-8">
             <img src="/ayscript.jpg" alt="AY Logo" className="w-8 h-8 rounded-lg" />
             <div>
@@ -81,8 +108,8 @@ function BuiltinsPage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 ml-64">
-          <div className="max-w-5xl mx-auto px-8 py-12">
+        <div className="flex-1 lg:ml-64">
+          <div className="max-w-[100vw] mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-20 lg:pt-12 overflow-hidden">
             {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -90,10 +117,10 @@ function BuiltinsPage() {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 Built-in Functions
               </h1>
-              <p className="text-xl text-blue-100 max-w-3xl">
+              <p className="text-lg sm:text-xl text-blue-100 max-w-3xl">
                 AY comes with a rich standard library of built-in functions for common programming tasks.
               </p>
             </motion.div>
@@ -114,21 +141,21 @@ function BuiltinsPage() {
               <div className="space-y-6">
                 <div className="bg-slate-800/50 rounded-xl p-6 border border-blue-400/20">
                   <h3 className="text-xl font-semibold text-white mb-4">Input/Output Functions</h3>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-semibold text-blue-200 mb-2">print(...values)</h4>
+                        <h4 className="font-semibold text-blue-200 mb-2 text-sm sm:text-base">print(...values)</h4>
                         <p className="text-blue-100 text-sm mb-2">Prints values to the console</p>
-                        <div className="bg-slate-800 rounded p-2">
-                          <code className="text-cyan-400 text-xs">print("Hello", "World", 123)</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">print("Hello", "World", 123)</code>
                         </div>
                       </div>
                       
                       <div>
                         <h4 className="font-semibold text-blue-200 mb-2">input(prompt?)</h4>
                         <p className="text-blue-100 text-sm mb-2">Gets user input from terminal (synchronous)</p>
-                        <div className="bg-slate-800 rounded p-2">
-                          <code className="text-cyan-400 text-xs">l name = input("Enter name: ")</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">l name = input("Enter name: ")</code>
                         </div>
                       </div>
                     </div>
@@ -137,16 +164,16 @@ function BuiltinsPage() {
                       <div>
                         <h4 className="font-semibold text-blue-200 mb-2">writestdout(...values)</h4>
                         <p className="text-blue-100 text-sm mb-2">Prints to stdout without newline</p>
-                        <div className="bg-slate-800 rounded p-2">
-                          <code className="text-cyan-400 text-xs">writestdout("Loading...")</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">writestdout("Loading...")</code>
                         </div>
                       </div>
                       
                       <div>
                         <h4 className="font-semibold text-blue-200 mb-2">errorlog(...msg)</h4>
                         <p className="text-blue-100 text-sm mb-2">Prints error messages to console</p>
-                        <div className="bg-slate-800 rounded p-2">
-                          <code className="text-cyan-400 text-xs">errorlog("Error occurred!")</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">errorlog("Error occurred!")</code>
                         </div>
                       </div>
                     </div>
@@ -159,32 +186,32 @@ function BuiltinsPage() {
                     <div>
                       <h4 className="font-semibold text-green-300 mb-2">coolPrint(msg)</h4>
                       <p className="text-blue-100 text-sm mb-2">Prints with "[COOL PRINT]" prefix</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">coolPrint("Success!")</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">coolPrint("Success!")</code>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-semibold text-yellow-300 mb-2">fancyLog(msg)</h4>
                       <p className="text-blue-100 text-sm mb-2">Prints with "✨ FANCY LOG:" prefix</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">fancyLog("Info message")</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">fancyLog("Info message")</code>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-semibold text-orange-300 mb-2">stylishWarn(msg)</h4>
                       <p className="text-blue-100 text-sm mb-2">Prints with "⚠️ STYLISH WARNING:" prefix</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">stylishWarn("Be careful!")</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">stylishWarn("Be careful!")</code>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-semibold text-red-300 mb-2">errorPop(msg)</h4>
                       <p className="text-blue-100 text-sm mb-2">Prints with "❌ ERROR POP:" prefix</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">errorPop("Fatal error!")</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">errorPop("Fatal error!")</code>
                       </div>
                     </div>
                   </div>
@@ -196,24 +223,24 @@ function BuiltinsPage() {
                     <div>
                       <h4 className="font-semibold text-blue-200 mb-2">rand(min?, max?)</h4>
                       <p className="text-blue-100 text-sm mb-2">Returns random number (0-1 if no params, or between min-max)</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">l random = rand(1, 10)  // Random between 1-10, can be a float</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">l random = rand(1, 10)  // Random between 1-10, can be a float</code>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-semibold text-blue-200 mb-2">randInt(min?, max?)</h4>
                       <p className="text-blue-100 text-sm mb-2">Returns random integer between min and max</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">l dice = randInt(1, 6)  // Random integer 1-6</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">l dice = randInt(1, 6)  // Random integer 1-6</code>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-semibold text-blue-200 mb-2">round(num, precision?)</h4>
                       <p className="text-blue-100 text-sm mb-2">Rounds number to specified decimal places (default 0)</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-cyan-400 text-xs">l rounded = round(3.14159, 2)  // 3.14</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-cyan-400 text-xs sm:text-sm whitespace-pre">l rounded = round(3.14159, 2)  // 3.14</code>
                       </div>
                     </div>
                   </div>
@@ -399,8 +426,8 @@ function BuiltinsPage() {
                     <div key={index} className="bg-slate-700/50 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">{func.name}</h4>
                       <p className="text-blue-100 text-sm mb-3">{func.desc}</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-gray-300 text-xs">{func.example}</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">{func.example}</code>
                       </div>
                     </div>
                   ))}
@@ -460,8 +487,8 @@ function BuiltinsPage() {
                       <div key={index} className="bg-slate-700/50 rounded-lg p-4">
                         <h4 className="font-mono text-cyan-300 text-sm mb-2">{func.name}</h4>
                         <p className="text-blue-100 text-xs mb-3">{func.desc}</p>
-                        <div className="bg-slate-800 rounded p-2">
-                          <code className="text-gray-300 text-xs">{func.example}</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">{func.example}</code>
                         </div>
                       </div>
                     ))}
@@ -474,7 +501,7 @@ function BuiltinsPage() {
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">filter(arr, callback)</h4>
                       <p className="text-blue-100 text-sm mb-3">Returns new filtered array</p>
-                      <div className="bg-slate-800 rounded p-3">
+                      <div className="bg-slate-800 overflow-auto rounded p-3">
                         <pre className="text-gray-300 text-xs">
                           <code>{`l evens = filter([1,2,3,4], f(x) { return x % 2 == 0 })
 // Result: [2, 4]`}</code>
@@ -485,7 +512,7 @@ function BuiltinsPage() {
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">map(arr, callback)</h4>
                       <p className="text-blue-100 text-sm mb-3">Returns new mapped array</p>
-                      <div className="bg-slate-800 rounded p-3">
+                      <div className="bg-slate-800 overflow-auto rounded p-3">
                         <pre className="text-gray-300 text-xs">
                           <code>{`l doubled = map([1,2,3], f(x) { return x * 2 })
 // Result: [2, 4, 6]`}</code>
@@ -496,7 +523,7 @@ function BuiltinsPage() {
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">newArr(arr, size, fillValue?)</h4>
                       <p className="text-blue-100 text-sm mb-3">Creates new array from existing with specified size and fill value</p>
-                      <div className="bg-slate-800 rounded p-3">
+                      <div className="bg-slate-800 overflow-auto rounded p-3">
                         <pre className="text-gray-300 text-xs">
                           <code>{`l zeros = newArr([], 5, 0)  // [0, 0, 0, 0, 0]`}</code>
                         </pre>
@@ -615,16 +642,16 @@ l backToJson = stringifyJson(userData)`}</code>
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">now()</h4>
                       <p className="text-blue-100 text-sm mb-3">Returns current Date object</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-gray-300 text-xs">l currentDate = now()</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">l currentDate = now()</code>
                       </div>
                     </div>
                     
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">timestamp()</h4>
                       <p className="text-blue-100 text-sm mb-3">Returns current timestamp in milliseconds</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-gray-300 text-xs">l ts = timestamp()</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">l ts = timestamp()</code>
                       </div>
                     </div>
                   </div>
@@ -769,16 +796,16 @@ write("data.json", stringifyJson(userData))`}</code>
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">stopTimeout(timeoutId)</h4>
                       <p className="text-blue-100 text-sm mb-3">Clears a timeout</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-gray-300 text-xs">stopTimeout(timeoutId)</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">stopTimeout(timeoutId)</code>
                       </div>
                     </div>
                     
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">stopInterval(intervalId)</h4>
                       <p className="text-blue-100 text-sm mb-3">Clears an interval</p>
-                      <div className="bg-slate-800 rounded p-2">
-                        <code className="text-gray-300 text-xs">stopInterval(intervalId)</code>
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <code className="text-gray-300 text-xs sm:text-sm whitespace-pre">stopInterval(intervalId)</code>
                       </div>
                     </div>
                   </div>
