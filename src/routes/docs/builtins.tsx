@@ -578,9 +578,9 @@ awaitPromise(promise, f(response) { print("Created!") }, f(err) { print(err) })`
                       <div key={index} className="bg-slate-700/30 rounded-lg p-4">
                         <h4 className="font-mono text-cyan-300 mb-2">{func.name}</h4>
                         <p className="text-blue-100 text-sm mb-3">{func.desc}</p>
-                        <div className="bg-slate-800 rounded p-3">
-                          <pre className="text-gray-300 text-xs overflow-x-auto">
-                            <code>{func.example}</code>
+                        <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                          <pre className="text-gray-300 text-xs sm:text-sm">
+                            <code className="whitespace-pre">{func.example}</code>
                           </pre>
                         </div>
                       </div>
@@ -594,9 +594,9 @@ awaitPromise(promise, f(response) { print("Created!") }, f(err) { print(err) })`
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">awaitPromise(promise, onSuccess, onError)</h4>
                       <p className="text-blue-100 text-sm mb-3">Handles async operations</p>
-                      <div className="bg-slate-800 rounded p-3">
-                        <pre className="text-gray-300 text-xs">
-                          <code>{`l promise = httpGet("https://api.example.com/user")
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <pre className="text-gray-300 text-xs sm:text-sm">
+                          <code className="whitespace-pre">{`l promise = httpGet("https://api.example.com/user")
 awaitPromise(promise, f(userData) {
     print("User: " + userData)
 }, f(error) {
@@ -609,9 +609,9 @@ awaitPromise(promise, f(userData) {
                     <div className="bg-slate-700/30 rounded-lg p-4">
                       <h4 className="font-mono text-cyan-300 mb-2">parseJson(jsonString) / stringifyJson(obj)</h4>
                       <p className="text-blue-100 text-sm mb-3">Safely parse and stringify JSON</p>
-                      <div className="bg-slate-800 rounded p-3">
-                        <pre className="text-gray-300 text-xs">
-                          <code>{`l jsonStr = '{"name": "Alice", "age": 30}'
+                      <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                        <pre className="text-gray-300 text-xs sm:text-sm">
+                          <code className="whitespace-pre">{`l jsonStr = '{"name": "Alice", "age": 30}'
 l userData = parseJson(jsonStr)
 l backToJson = stringifyJson(userData)`}</code>
                         </pre>
@@ -719,25 +719,25 @@ l backToJson = stringifyJson(userData)`}</code>
                 File System Functions
               </h2>
               
-              <div className="bg-slate-800/50 rounded-xl p-6 border border-blue-400/20">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-slate-700/30 rounded-lg p-4">
+              <div className="bg-slate-800/50 rounded-xl p-6 border border-blue-400/20 overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-6 overflow-hidden">
+                  <div className="bg-slate-700/30 rounded-lg p-4 overflow-hidden">
                     <h4 className="font-mono text-cyan-300 mb-2">read(path, options?)</h4>
                     <p className="text-blue-100 text-sm mb-3">Reads file content (default encoding: utf-8)</p>
-                    <div className="bg-slate-800 rounded p-3">
-                      <pre className="text-gray-300 text-xs">
-                        <code>{`l content = read("config.txt")
+                    <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                      <pre className="text-gray-300 text-xs sm:text-sm">
+                        <code className="whitespace-pre">{`l content = read("config.txt")
 l jsonConfig = read("config.json")`}</code>
                       </pre>
                     </div>
                   </div>
                   
-                  <div className="bg-slate-700/30 rounded-lg p-4">
+                  <div className="bg-slate-700/30 rounded-lg p-4 overflow-hidden">
                     <h4 className="font-mono text-cyan-300 mb-2">write(file, data)</h4>
                     <p className="text-blue-100 text-sm mb-3">Writes content to file</p>
-                    <div className="bg-slate-800 rounded p-3">
-                      <pre className="text-gray-300 text-xs">
-                        <code>{`write("output.txt", "Hello World!")
+                    <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                      <pre className="text-gray-300 text-xs sm:text-sm">
+                        <code className="whitespace-pre">{`write("output.txt", "Hello World!")
 write("data.json", stringifyJson(userData))`}</code>
                       </pre>
                     </div>
@@ -771,9 +771,9 @@ write("data.json", stringifyJson(userData))`}</code>
                   <div className="bg-slate-700/30 rounded-lg p-4">
                     <h4 className="font-mono text-cyan-300 mb-2">Timeout(fn, delay)</h4>
                     <p className="text-blue-100 text-sm mb-3">Sets a timeout to execute function after delay (milliseconds)</p>
-                    <div className="bg-slate-800 rounded p-3">
-                      <pre className="text-gray-300 text-xs">
-                        <code>{`l timeoutId = Timeout(f() { 
+                    <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                      <pre className="text-gray-300 text-xs sm:text-sm">
+                        <code className="whitespace-pre">{`l timeoutId = Timeout(f() { 
     print("This runs after 2 seconds")
 }, 2000)`}</code>
                       </pre>
@@ -783,9 +783,9 @@ write("data.json", stringifyJson(userData))`}</code>
                   <div className="bg-slate-700/30 rounded-lg p-4">
                     <h4 className="font-mono text-cyan-300 mb-2">Interval(fn, interval)</h4>
                     <p className="text-blue-100 text-sm mb-3">Sets an interval to execute function repeatedly</p>
-                    <div className="bg-slate-800 rounded p-3">
-                      <pre className="text-gray-300 text-xs">
-                        <code>{`l intervalId = Interval(f() {
+                    <div className="bg-slate-800 rounded p-3 sm:p-4 overflow-x-auto">
+                      <pre className="text-gray-300 text-xs sm:text-sm">
+                        <code className="whitespace-pre">{`l intervalId = Interval(f() {
     print("This runs every second")
 }, 1000)`}</code>
                       </pre>

@@ -480,8 +480,8 @@ print("Age: " + age)`}</code>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <p className="text-green-400 text-xs mb-2">✅ Correct:</p>
-                        <pre className="bg-slate-800 rounded p-2 text-xs text-green-300">
-                          <code>{`if (condition) {
+                        <pre className="bg-slate-800 rounded p-3 sm:p-4 text-xs sm:text-sm text-green-300 overflow-x-auto">
+                          <code className="whitespace-pre">{`if (condition) {
     // code
 } else {
     // code
@@ -490,8 +490,8 @@ print("Age: " + age)`}</code>
                       </div>
                       <div>
                         <p className="text-red-400 text-xs mb-2">❌ Wrong:</p>
-                        <pre className="bg-slate-800 rounded p-2 text-xs text-red-300">
-                          <code>{`if (condition) {
+                        <pre className="bg-slate-800 rounded p-3 sm:p-4 text-xs sm:text-sm text-red-300 overflow-x-auto">
+                          <code className="whitespace-pre">{`if (condition) {
     // code
 }
 else {  // This won't work!
@@ -658,7 +658,7 @@ while (counter < 5) {
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">While Loop with User Input</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                      <div className="bg-slate-800 overflow-auto rounded-xl p-4 border border-blue-400/20">
                         <pre className="text-blue-100 text-sm">
                           <code>{`l userInput = ""
 
@@ -686,7 +686,7 @@ print("Goodbye!")`}</code>
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">Basic For Loop</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                      <div className="bg-slate-800 overflow-auto rounded-xl p-4 border border-blue-400/20">
                         <pre className="text-blue-100 text-sm">
                           <code>{`// Print numbers from 0 to 9
 for (l i = 0; i < 10; i++) {
@@ -704,7 +704,7 @@ print("Blast off!")`}</code>
 
                     <div>
                       <h4 className="text-lg font-medium text-white mb-2">For Loop with Arrays</h4>
-                      <div className="bg-slate-800 rounded-xl p-4 border border-blue-400/20">
+                      <div className="bg-slate-800 overflow-auto rounded-xl p-4 border border-blue-400/20">
                         <pre className="text-blue-100 text-sm">
                           <code>{`l fruits = ["apple", "banana", "orange", "grape"]
 l arrayLength = len(fruits)
@@ -729,7 +729,7 @@ for (l i = 0; i < arrayLength; i++) {
                   <h3 className="text-xl font-semibold text-white mb-4">Loop Control</h3>
                   <p className="text-blue-100 mb-4">
                     Control loop execution with <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400">break</code> and 
-                    <code className="bg-slate-700 px-2 py-1 rounded text-cyan-400 ml-2">continue</code>:
+                    <code className="bg-slate-700 overflow-auto px-2 py-1 rounded text-cyan-400 ml-2">continue</code>:
                   </p>
                   
                   <div className="grid md:grid-cols-2 gap-6">
@@ -787,9 +787,9 @@ for (l i = 1; i <= 10; i++) {
                   <p className="text-green-100 mb-4">
                     You can create aliases for loop control keywords to make your code more readable:
                   </p>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <pre className="text-blue-100 text-sm">
-                      <code>{`// Define custom aliases
+                  <div className="bg-slate-800 rounded-lg p-3 sm:p-4 overflow-x-auto">
+                    <pre className="text-blue-100 text-xs sm:text-sm">
+                      <code className="whitespace-pre">{`// Define custom aliases
 def brk -> break
 def skip -> continue
 def var -> l
