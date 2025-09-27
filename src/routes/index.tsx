@@ -125,7 +125,7 @@ print("Average: " + result)`
             Why Choose AY?
           </motion.h2>
           
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {[
               {
                 icon: <Zap className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-400" />,
@@ -141,6 +141,11 @@ print("Average: " + result)`
                 icon: <Terminal className="w-10 h-10 sm:w-12 sm:h-12 text-sky-400" />,
                 title: "Rich Standard Library",
                 description: "Comprehensive built-in functions for math, strings, arrays, HTTP requests, and more"
+              },
+              {
+                icon: <Code className="w-10 h-10 sm:w-12 sm:h-12 text-purple-400" />,
+                title: "VS Code Extension",
+                description: "Syntax highlighting and language support available in Visual Studio Code marketplace"
               }
             ].map((feature, index) => (
               <motion.div
@@ -236,7 +241,7 @@ print("Average: " + result)`
           </motion.h2>
           
           <motion.div
-            className="bg-slate-800 rounded-xl p-6 mb-8 border border-blue-400/30 relative"
+            className="bg-slate-800 rounded-xl p-6 mb-6 border border-blue-400/30 relative"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -269,6 +274,30 @@ print("Average: " + result)`
                 Copied to clipboard!
               </motion.p>
             )}
+          </motion.div>
+          
+          <motion.div
+            className="bg-slate-800 rounded-xl p-6 mb-8 border border-purple-400/30 relative"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <p className="text-blue-200 text-sm mb-3">Get VS Code extension for syntax highlighting:</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <motion.a
+                href="https://marketplace.visualstudio.com/items?itemName=AyomideEmmanuelOluwatola.ayscript"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Code size={16} />
+                Install Extension
+              </motion.a>
+              <span className="text-blue-300 text-sm">or search "ayscript" in VS Code extensions</span>
+            </div>
           </motion.div>
           
           <motion.div
