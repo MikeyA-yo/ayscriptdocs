@@ -247,7 +247,7 @@ print("Average: " + result)`
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <p className="text-blue-200 text-sm mb-2">Install AY globally via npm:</p>
+            <p className="text-blue-200 text-sm mb-2">Install AY globally via npm (recommended for latest features):</p>
             <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
               <code className="text-cyan-400 text-sm sm:text-lg font-mono">npm install -g ayscript</code>
               <motion.button
@@ -274,6 +274,26 @@ print("Average: " + result)`
                 Copied to clipboard!
               </motion.p>
             )}
+          </motion.div>
+          
+          <motion.div
+            className="bg-slate-800 rounded-xl p-6 mb-6 border border-green-400/30 relative"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <p className="text-blue-200 text-sm">Go version (2-5x faster performance):</p>
+              <span className="bg-green-500/20 text-green-300 text-xs px-2 py-1 rounded-full">FAST</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap mb-2">
+              <code className="text-green-400 text-sm sm:text-base font-mono">go install github.com/MikeyA-yo/ay-go@latest</code>
+            </div>
+            <p className="text-blue-300 text-xs text-center">
+              Use <code className="text-green-400 bg-slate-700 px-1 rounded">ay-go</code> command • 
+              Note: Language updates are released first on npm version
+            </p>
           </motion.div>
           
           <motion.div

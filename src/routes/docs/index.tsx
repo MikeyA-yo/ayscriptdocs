@@ -179,7 +179,7 @@ function DocsPage() {
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 1: Install from npm (Recommended)</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 1: Install from npm (Recommended for latest features)</h3>
                   <p className="text-blue-100 mb-4">Install the AY compiler globally using npm:</p>
                   <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 overflow-x-auto">
                     <code className="text-cyan-400 font-mono text-sm sm:text-base whitespace-nowrap">npm install -g ayscript</code>
@@ -187,7 +187,24 @@ function DocsPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 2: Install from Source</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 flex items-center gap-2">
+                    Option 2: Go Version 
+                    <span className="bg-green-500/20 text-green-300 text-xs px-2 py-1 rounded-full">2-5x FASTER</span>
+                  </h3>
+                  <p className="text-blue-100 mb-4">Install the high-performance Go compiler (requires Go to be installed):</p>
+                  <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-green-400/20 overflow-x-auto mb-3">
+                    <code className="text-green-400 font-mono text-sm sm:text-base whitespace-nowrap">go install github.com/MikeyA-yo/ay-go@latest</code>
+                  </div>
+                  <div className="bg-green-900/20 rounded-lg p-3 border border-green-400/30">
+                    <p className="text-green-100 text-sm">
+                      <strong>Usage:</strong> Use <code className="text-green-400 bg-slate-700 px-1 rounded">ay-go</code> command instead of <code className="text-cyan-400 bg-slate-700 px-1 rounded">ayc</code><br/>
+                      <strong>Note:</strong> Language updates are released first on the npm version
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Option 3: Install from Source</h3>
                   <p className="text-blue-100 mb-4">For development or contributing:</p>
                   <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-blue-400/20 space-y-2 overflow-x-auto">
                     <div><code className="text-cyan-400 font-mono text-xs sm:text-sm block whitespace-nowrap">git clone https://github.com/MikeyA-yo/ay-ts.git</code></div>
